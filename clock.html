@@ -1,0 +1,81 @@
+<html>
+
+<head>
+    <title id="myTitle"></title>
+    <style>
+        body {
+            background: black;
+        }
+        @keyframes example {
+            from {top: calc(0% + 150px);}
+            to {top: calc(100% - 150px);}           
+        }
+
+        .clock {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            color: #17D4FE;
+            font-size: 160px;
+            font-family: MONOSPACE;
+            letter-spacing: 7px;
+            animation-name: example;
+            animation-duration: 600s;   
+            animation-iteration-count: infinite; 
+            animation-timing-function: linear;
+            animation-direction: alternate;                                            
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
+    <div id="DateAndDay">
+    <div id="MyDateDisplay" class="clock" style="top: calc(50% + 160px); font-size: 60px; position: absolute;
+    bottom: 0;
+    right: 0;
+    left: auto;
+    top: auto;
+    transform: none; text-align: right; letter-spacing: normal;"></div>
+    <div id="MyWeekDayDisplay" class="clock" style="top: calc(50% + 150px); font-size: 60px;"></div>
+
+    </div>
+
+</body>
+<script>
+    function showTime() {
+        var date = new Date();
+        var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var h = date.getHours(); // 0 - 23
+        var m = date.getMinutes(); // 0 - 59
+        var s = date.getSeconds(); // 0 - 59
+        var session = "AM";
+
+        var currentDate = date.toLocaleDateString("SK-sk")
+        var weekday = dayNames[date.getDay()];
+
+        h = (h < 10) ? "0" + h : h;
+        m = (m < 10) ? "0" + m : m;
+        s = (s < 10) ? "0" + s : s;
+
+        var time = h + ":" + m + ":" + s + " ";
+        document.getElementById("MyClockDisplay").innerText = time;
+        document.getElementById("MyClockDisplay").textContent = time;
+        document.getElementById("myTitle").innerText = time + " | " + currentDate + " | " + weekday;
+
+        document.getElementById("MyDateDisplay").innerHTML = currentDate + "<br>" + weekday;
+        // document.getElementById("MyDateDisplay").textContent =  currentDate + "<br/>" + weekday;
+
+        // document.getElementById("MyWeekDayDisplay").innerText = weekday;
+        // document.getElementById("MyWeekDayDisplay").textContent = weekday;
+
+        setTimeout(showTime, 1000);
+
+    }
+
+    showTime();
+</script>
+
+</html>
